@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Password Manager</string>
+    <string name="title_activity_main">Password Manager</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="action_about">About</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_backup_to_cloud">Backup to cloud</string>
+    <string name="nav_social_media">Social Media</string>
+    <string name="nav_debit_credit_card">Debit / Credit card</string>
+    <string name="nav_bank">Bank Account</string>
+    <string name="nav_cryptocurrency">Cryptocurrency</string>
+    <string name="nav_server_or_networking">Server or Networking</string>
+    <string name="nav_email_account">Email Account</string>
+    <string name="nav_rate_this_app">Rate This App</string>
+    <string name="nav_share_this_app">Share This App</string>
+    <string name="nav_more_apps">More Apps</string>
+    <string name="nav_others">Others</string>
+    <string name="nav_seperation_cloud_backup">Cloud Backup</string>
+    <string name="nav_restore_from_cloud">Restore from cloud</string>
+
+
+    <string name="nav_seperator_communicate">Communicate</string>
+    <string name="nav_seperator_categories">Categories</string>
+    <string name="action_exit">Exit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

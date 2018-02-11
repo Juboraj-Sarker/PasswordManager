@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/nav_home" />
+    </group>
+
+
+    <item
+        android:title="@string/nav_seperator_categories">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_bank_account"
+                    android:icon="@drawable/ic_bank"
+                    android:title="@string/nav_bank" />
+                <item
+                    android:id="@+id/nav_cryptocurrency"
+                    android:icon="@drawable/ic_cryptocurrency"
+                    android:title="@string/nav_cryptocurrency" />
+                <item
+                    android:id="@+id/nav_card"
+                    android:icon="@drawable/ic_credit_card"
+                    android:title="@string/nav_debit_credit_card" />
+                <item
+                    android:id="@+id/nav_email"
+                    android:icon="@drawable/ic_email"
+                    android:title="@string/nav_email_account" />
+                <item
+                    android:id="@+id/nav_server"
+                    android:icon="@drawable/ic_server"
+                    android:title="@string/nav_server_or_networking" />
+                <item
+                    android:id="@+id/nav_social_media"
+                    android:icon="@drawable/ic_public"
+                    android:title="@string/nav_social_media" />
+                <item
+                    android:id="@+id/nav_others"
+                    android:icon="@drawable/ic_help"
+                    android:title="@string/nav_others" />
+
+            </group>
+
+        </menu>
+
+    </item>
+
+
+
+
+    <item android:title="@string/nav_seperation_cloud_backup">
+        <menu>
+          <group android:checkableBehavior="single">
+
+              <item
+                  android:id="@+id/nav_backup"
+                  android:icon="@drawable/ic_cloud_upload"
+                  android:title="@string/nav_backup_to_cloud" />
+              <item
+                  android:id="@+id/nav_restore"
+                  android:icon="@drawable/ic_cloud_download"
+                  android:title="@string/nav_restore_from_cloud" />
+
+          </group>
+        </menu>
+    </item>
+
+
+    <item android:title="@string/nav_seperator_communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_star"
+                android:title="@string/nav_rate_this_app" />
+
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share"
+                android:title="@string/nav_share_this_app" />
+            <item
+                android:id="@+id/nav_more_apps"
+                android:icon="@drawable/ic_more"
+                android:title="@string/nav_more_apps" />
+
+
+        </menu>
+    </item>
+
+</menu>

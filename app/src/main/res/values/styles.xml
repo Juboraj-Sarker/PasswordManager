@@ -1,0 +1,52 @@
+<resources>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">#fff</item>
+    </style>
+
+
+    <style name="myCustomTV" parent="@android:style/TextAppearance">
+
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#2e2d2d</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@color/colorItemBackground</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+
+    <style name="myCustomTV_White" parent="@android:style/TextAppearance">
+
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#2e2d2d</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">#fff</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+
+</resources>
