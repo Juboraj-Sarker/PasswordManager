@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, new HomeFragment()).commit();
-        setTitle("BankPassword Manager");
+        setTitle("Password Manager");
 
 
 
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
 
 
             fragmentManager.beginTransaction().add(R.id.container, new HomeFragment()).commit();
-            setTitle("BankPassword Manager");
+            setTitle("Password Manager");
 
 
         }else if (id == R.id.nav_bank_account) {
@@ -359,9 +359,9 @@ public class MainActivity extends AppCompatActivity
         String filePath = app.sourceDir;
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("*/*");
-        intent.createChooser(intent,"Age Calculator");
+        intent.createChooser(intent,"Password Manager");
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
-        startActivity(Intent.createChooser(intent, "share Age Calculator using"));
+        startActivity(Intent.createChooser(intent, "share Password Manager using:"));
     }
 
 

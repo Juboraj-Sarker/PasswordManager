@@ -1,19 +1,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <item
-        android:id="@+id/card_action_details"
+        android:id="@+id/card_action_copy_password"
         android:orderInCategory="100"
-        android:title="Details" />
+        android:title="@string/card_menu_copy_password" />
+
+    <item
+        android:id="@+id/card_action_copy_email"
+        android:orderInCategory="101"
+        android:title="@string/card_action_copy_email" />
+
+    <item
+        android:id="@+id/card_action_view"
+        android:orderInCategory="101"
+        android:title="@string/card_menu_view" />
+
+    <item
+        android:id="@+id/card_action_visit_site"
+        android:orderInCategory="102"
+        android:title="@string/card_action_visit_site" />
 
     <item
         android:id="@+id/card_action_update"
-        android:orderInCategory="101"
-        android:title="Update" />
+        android:orderInCategory="103"
+        android:title="@string/card_menu_update" />
 
     <item
         android:id="@+id/card_action_delete"
-        android:orderInCategory="101"
-        android:title="Delete" />
+        android:orderInCategory="104"
+        android:title="@string/card_menu_delete" />
 
 </menu>

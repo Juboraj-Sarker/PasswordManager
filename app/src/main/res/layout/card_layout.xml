@@ -56,16 +56,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Title"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"/>
 
                 <TextView
-                    android:id="@+id/cv_subTitle_TV"
+                    android:id="@+id/cv_email_TV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sub Title"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"/>
+
+                <TextView
+                    android:id="@+id/cv_website_TV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sub Title"
+                    android:textSize="11sp"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"/>
 

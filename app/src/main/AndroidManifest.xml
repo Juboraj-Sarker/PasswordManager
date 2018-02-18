@@ -3,6 +3,7 @@
     package="com.juborajsarker.passwordmanager">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,12 +24,14 @@
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/MyMaterialTheme" />
-
-        <activity android:name=".activity.AddNewActivity"
+        <activity
+            android:name=".activity.AddNewActivity"
             android:label="Add New Account"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ViewActivity" />
+        <activity android:name=".activity.WebviewActivity" />
+        <activity android:name=".activity.CardDetailsActivity" />
+        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

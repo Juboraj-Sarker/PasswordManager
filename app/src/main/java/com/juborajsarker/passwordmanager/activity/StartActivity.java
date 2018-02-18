@@ -104,7 +104,7 @@ public class StartActivity extends AppCompatActivity {
 
 
                             count --;
-                            inputTV.setError("BankPassword not matched ");
+                            inputTV.setError("ModelPassword not matched ");
                         }
                     }
 

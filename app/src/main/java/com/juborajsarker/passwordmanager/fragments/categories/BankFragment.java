@@ -1,24 +1,37 @@
 package com.juborajsarker.passwordmanager.fragments.categories;
 
 
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.juborajsarker.passwordmanager.R;
-import com.juborajsarker.passwordmanager.adapters.BankAdapter;
-import com.juborajsarker.passwordmanager.java_class.BankPassword;
+import com.juborajsarker.passwordmanager.adapters.CustomAdapter;
+import com.juborajsarker.passwordmanager.database.DBHelper;
+import com.juborajsarker.passwordmanager.model.GridSpacingItemDecoration;
+import com.juborajsarker.passwordmanager.model.ModelPassword;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class BankFragment extends Fragment {
@@ -26,8 +39,25 @@ public class BankFragment extends Fragment {
     View view;
 
     private RecyclerView recyclerView;
-    private BankAdapter adapter;
-    private List<BankPassword> bankList;
+    private CustomAdapter adapter;
+    private List<ModelPassword> passwordList;
+    private DBHelper dbHelper;
+
+    private String TABLE_NAME = "bankTable";
+
+    private FloatingActionButton fab;
+
+
+    String title, passwords, website, email;
+    String TYPE = "BANK";
+    String prefKey = "bankId";
+
+    AlertDialog alertDialog;
+
+    int idValues = 0;
+    int counter = 0;
+    public SharedPreferences sharedPreferences;
+
 
 
     public BankFragment() {
@@ -40,92 +70,161 @@ public class BankFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_bank, container, false);
 
+
+
+        mustExecute();
+
+
+
+        return view;
+    }
+
+    private void mustExecute() {
+
+
+        sharedPreferences = getActivity().getSharedPreferences("emailValue", MODE_PRIVATE);
+
+        fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+                final View dialogView = layoutInflater.inflate(R.layout.layout_custom_dialog, null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setView(dialogView);
+
+                final TextView dialogTitle = (TextView) dialogView.findViewById(R.id.dialog_title);
+                dialogTitle.setText("Add New " + TYPE +" Account");
+
+                final EditText titleValue = (EditText) dialogView.findViewById(R.id.dialog_bank_name);
+                final EditText passwordValue = (EditText) dialogView.findViewById(R.id.dialog_bank_password);
+                final EditText websiteValue = (EditText) dialogView.findViewById(R.id.dialog_bank_website);
+                final EditText emailValue = (EditText) dialogView.findViewById(R.id.dialog_bank_email);
+
+                final ImageView visibilityIV = (ImageView) dialogView.findViewById(R.id.dialog_visibility_IV);
+
+                final Button okBTN = (Button) dialogView.findViewById(R.id.dialog_button_ok);
+                final Button cancelBTN = (Button) dialogView.findViewById(R.id.dialog_button_cancel);
+
+                visibilityIV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        counter++;
+                        if (counter % 2 == 0) {
+
+                            passwordValue.setInputType(InputType.TYPE_CLASS_TEXT |
+                                    InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                            visibilityIV.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_visibility));
+
+
+                        } else {
+
+                            passwordValue.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                            visibilityIV.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_visibility_off));
+                        }
+                    }
+                });
+
+                okBTN.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        title = titleValue.getText().toString();
+                        passwords = passwordValue.getText().toString();
+                        website = websiteValue.getText().toString();
+                        email = emailValue.getText().toString();
+
+                        if (title.equals("")
+                                || passwords.equals("")
+                                || email.equals("")) {
+
+                            Toast.makeText(getContext(), "Please input valid", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            if (website.equals("")) {
+
+                                website = "null";
+                            }
+
+                            prepare();
+
+                        }
+
+                    }
+                });
+
+
+                cancelBTN.setOnClickListener
+                        (new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 alertDialog.dismiss();
+                             }
+                         }
+
+
+                        );
+
+
+                builder.setCancelable(false);
+
+
+                alertDialog = builder.create();
+                alertDialog.show();
+
+
+            }
+        });
+
+
+        dbHelper = new DBHelper(getContext(), TABLE_NAME);
+        dbHelper.setTABLE_NAME(TABLE_NAME);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        bankList = new ArrayList<>();
-        adapter = new BankAdapter(getContext(), bankList);
+        passwordList = new ArrayList<>();
+        adapter = new CustomAdapter(getContext(), passwordList, dbHelper, recyclerView, TABLE_NAME);
+
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(0), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        prepare();
-
-        return view;
     }
+
 
     private void prepare() {
 
-        String title = "Facebook";
-        BankPassword password = new BankPassword(title, "juboraj12345", "www.facebook.com", title.toUpperCase().charAt(0));
-        bankList.add(password);
 
+        idValues = sharedPreferences.getInt(prefKey, 0);
+        idValues++;
 
-        title = "Yahoo";
-        password = new BankPassword(title, "juboraj12345", "www.facebook.com", title.toUpperCase().charAt(0));
-        bankList.add(password);
-
-
-        title = "Twitter";
-        password = new BankPassword(title, "juboraj12345", "www.facebook.com", title.toUpperCase().charAt(0));
-        bankList.add(password);
-
-
-        title = "Gmail";
-        password = new BankPassword(title, "juboraj12345", "www.facebook.com", title.toUpperCase().charAt(0));
-        bankList.add(password);
-
-        title = "Linkedin";
-        password = new BankPassword(title, "juboraj12345", "www.facebook.com", title.toUpperCase().charAt(0));
-        bankList.add(password);
-
-
-        title = "Github";
-        password = new BankPassword(title, "juboraj12345", "www.facebook.com", title.toUpperCase().charAt(0));
-        bankList.add(password);
-
-
+        ModelPassword password = new ModelPassword(idValues, title, passwords, website, title.toUpperCase().charAt(0),
+                TYPE, email);
+        dbHelper.insertData(password, TABLE_NAME);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
 
+        passwordList = dbHelper.getAllData(TABLE_NAME);
+        adapter = new CustomAdapter(getContext(), passwordList, dbHelper, recyclerView, TABLE_NAME);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(prefKey, idValues);
+        editor.apply();
+        adapter.notifyDataSetChanged();
+
+        alertDialog.dismiss();
+
+
     }
 
-
-    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
-
-
-        private int spanCount;
-        private int spacing;
-        private boolean includeEdge;
-
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
-            this.spanCount = spanCount;
-            this.spacing = spacing;
-            this.includeEdge = includeEdge;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            int position = parent.getChildAdapterPosition(view); // item position
-            int column = position % spanCount; // item column
-
-            if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
-                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
-
-                if (position < spanCount) { // top edge
-                    outRect.top = spacing;
-                }
-                outRect.bottom = spacing; // item bottom
-            } else {
-                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-                if (position >= spanCount) {
-                    outRect.top = spacing; // item top
-                }
-            }
-        }
-    }
 
     /**
      * Converting dp to pixel
@@ -133,6 +232,18 @@ public class BankFragment extends Fragment {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        dbHelper = new DBHelper(getContext(), TABLE_NAME);
+        passwordList = dbHelper.getAllData(TABLE_NAME);
+        adapter = new CustomAdapter(getContext(), passwordList, dbHelper, recyclerView, TABLE_NAME);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
 

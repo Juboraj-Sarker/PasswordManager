@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/layout_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="5dp"
+    android:elevation="2dp"
+    android:background="@color/colorItemBackground">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add new CARD details : "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:background="@drawable/custom_layout_design"
+            android:layout_marginTop="8dp"
+            android:elevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="#e5e5e5"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Card Number*"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="4dp"/>
+
+
+                <EditText
+                    android:id="@+id/dialog_card_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ex: xxxx xxxx xxxx xxxx"
+                    android:padding="8dp"
+                    android:background="@drawable/edit_text_design"
+                    android:maxLines="1"
+                    android:maxLength="16"
+                    android:inputType="number"
+                    android:textSize="14sp">
+
+                    <requestFocus />
+
+                </EditText>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="#cccccc"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name on Card*"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="4dp"/>
+
+
+                <EditText
+                    android:id="@+id/dialog_card_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ex: someone"
+                    android:padding="8dp"
+                    android:background="@drawable/edit_text_design"
+                    android:maxLines="1"
+                    android:textSize="14sp"/>
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:background="#e5e5e5"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PIN*"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="4dp"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/dialog_card_pin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ex: xxxx"
+                            android:padding="8dp"
+                            android:maxLines="1"
+                            android:inputType="textPassword"
+                            android:maxLength="4"
+                            android:background="@drawable/edit_text_design"
+                            android:textSize="14sp" />
+
+
+
+                        <ImageView
+                            android:id="@+id/dialog_pin_visibility_IV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_visibility"
+                            android:layout_alignParentRight="true"
+                            android:padding="5dp"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:background="#e5e5e5"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CCV*"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="4dp"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/dialog_card_ccv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ex: xxx"
+                            android:padding="8dp"
+                            android:maxLines="1"
+                            android:inputType="textPassword"
+                            android:maxLength="3"
+                            android:background="@drawable/edit_text_design"
+                            android:textSize="14sp" />
+
+
+
+                        <ImageView
+                            android:id="@+id/dialog_ccv_visibility_IV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_visibility"
+                            android:layout_alignParentRight="true"
+                            android:padding="5dp"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:background="#cccccc"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Valid Month*"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="4dp"/>
+
+
+                    <EditText
+                        android:id="@+id/dialog_card_valid_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ex: xx"
+                        android:padding="8dp"
+                        android:maxLength="2"
+                        android:background="@drawable/edit_text_design"
+                        android:maxLines="1"
+                        android:inputType="number"
+                        android:textSize="14sp"/>
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:background="#cccccc"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Valid Year*"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="4dp"/>
+
+
+                    <EditText
+                        android:id="@+id/dialog_card_valid_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ex: xxxx"
+                        android:padding="8dp"
+                        android:maxLength="4"
+                        android:background="@drawable/edit_text_design"
+                        android:maxLines="1"
+                        android:inputType="number"
+                        android:textSize="14sp"/>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="#e5e5e5"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bank name"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="4dp"/>
+
+
+                <EditText
+                    android:id="@+id/dialog_card_bank_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ex: xxxx xxxx xxxx xxxx"
+                    android:padding="8dp"
+                    android:background="@drawable/edit_text_design"
+                    android:maxLines="1"
+                    android:maxLength="16"
+                    android:inputType="number"
+                    android:textSize="14sp">
+
+                    <requestFocus />
+
+                </EditText>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp">
+
+
+                <Button
+                    android:id="@+id/dialog_button_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:text="CANCEL"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#fff"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"/>
+
+                <Button
+                    android:id="@+id/dialog_button_ok"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:text="OK"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#fff"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"/>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+</LinearLayout>

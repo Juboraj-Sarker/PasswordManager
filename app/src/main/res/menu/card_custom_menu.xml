@@ -1,0 +1,35 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/card_action_copy_card_number"
+        android:orderInCategory="99"
+        android:title="@string/card_action_copy_card_number" />
+
+    <item
+        android:id="@+id/card_action_copy_card_pin"
+        android:orderInCategory="100"
+        android:title="@string/action_copy_card_pin" />
+
+    <item
+        android:id="@+id/card_action_copy_card_ccv"
+        android:orderInCategory="101"
+        android:title="@string/action_copy_ccv" />
+
+    <item
+        android:id="@+id/card_action_view"
+        android:orderInCategory="102"
+        android:title="@string/card_menu_view" />
+
+    <item
+        android:id="@+id/card_action_update"
+        android:orderInCategory="103"
+        android:title="@string/card_menu_update" />
+
+    <item
+        android:id="@+id/card_action_delete"
+        android:orderInCategory="104"
+        android:title="@string/card_menu_delete" />
+
+</menu>
