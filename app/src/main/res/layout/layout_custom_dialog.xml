@@ -1,235 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_margin="5dp"
-    android:elevation="2dp"
-    android:background="@color/colorItemBackground">
 
-    <TextView
-        android:id="@+id/dialog_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Add new Bank account password : "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:background="#f0f0f0">
 
 
 
-    <ScrollView
+
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:background="@drawable/custom_layout_design"
-            android:layout_marginTop="8dp"
-            android:elevation="2dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp"
-                android:background="#e5e5e5"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp">
-
+                android:layout_marginTop="8dp">
 
                 <TextView
+                    android:id="@+id/dialog_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Title*"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="4dp"/>
+                    android:gravity="center"
+                    android:text="Add new password : "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginBottom="5dp"/>
 
-
-                <EditText
-                    android:id="@+id/dialog_bank_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Ex: Facebook"
-                    android:padding="8dp"
-                    android:background="@drawable/edit_text_design"
-                    android:maxLines="1"
-                    android:textSize="14sp">
-
-                    <requestFocus />
-
-                </EditText>
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:background="#cccccc"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp">
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email*"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="4dp"/>
-
-
-                <EditText
-                    android:id="@+id/dialog_bank_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Ex: anyone@example.com"
-                    android:padding="8dp"
-                    android:background="@drawable/edit_text_design"
-                    android:maxLines="1"
-                    android:textSize="14sp"/>
-
-
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:background="#e5e5e5"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp">
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Password*"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="4dp"/>
-
-
-                <RelativeLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <EditText
-                        android:id="@+id/dialog_bank_password"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="your account password"
-                        android:padding="8dp"
-                        android:maxLines="1"
-                        android:inputType="textPassword"
-                        android:background="@drawable/edit_text_design"
-                        android:textSize="14sp" />
-
-
-
-                    <ImageView
-                        android:id="@+id/dialog_visibility_IV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_visibility"
-                        android:layout_alignParentRight="true"
+                        android:orientation="vertical"
                         android:padding="5dp"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp">
 
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Title*"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="4dp"/>
+
+
+                        <EditText
+                            android:id="@+id/dialog_bank_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ex: Facebook"
+                            android:padding="8dp"
+                            android:background="@drawable/edit_text_design"
+                            android:maxLines="1"
+                            android:textColorHint="#bbb"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp"
-                android:background="#cccccc"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp">
-
-
-                <TextView
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Website"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="4dp"/>
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp">
 
 
-                <EditText
-                    android:id="@+id/dialog_bank_website"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email*"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="4dp"/>
+
+
+                        <EditText
+                            android:id="@+id/dialog_bank_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ex: anyone@example.com"
+                            android:padding="8dp"
+                            android:background="@drawable/edit_text_design"
+                            android:maxLines="1"
+                            android:textColorHint="#bbb"
+                            android:textSize="14sp"/>
+
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="ex: www.facebook.com"
-                    android:padding="8dp"
-                    android:background="@drawable/edit_text_design"
-                    android:maxLines="1"
-                    android:textSize="14sp"/>
+                    android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Password*"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="4dp"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/dialog_bank_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="your account password"
+                                android:padding="8dp"
+                                android:maxLines="1"
+                                android:textColorHint="#bbb"
+                                android:inputType="textPassword"
+                                android:background="@drawable/edit_text_design"
+                                android:textSize="14sp" />
+
+
+
+                            <ImageView
+                                android:id="@+id/dialog_visibility_IV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_visibility"
+                                android:layout_alignParentRight="true"
+                                android:padding="5dp"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Website"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="4dp"/>
+
+
+                        <EditText
+                            android:id="@+id/dialog_bank_website"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="ex: www.facebook.com"
+                            android:padding="8dp"
+                            android:background="@drawable/edit_text_design"
+                            android:maxLines="1"
+                            android:textColorHint="#bbb"
+                            android:textSize="14sp"/>
+
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="5dp">
+
+
+                        <Button
+                            android:id="@+id/dialog_button_cancel"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:text="CANCEL"
+                            android:background="@color/colorPrimary"
+                            android:textColor="#fff"
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp"/>
+
+                        <Button
+                            android:id="@+id/dialog_button_ok"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:text="OK"
+                            android:background="@color/colorPrimary"
+                            android:textColor="#fff"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"/>
+
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
 
             </LinearLayout>
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="5dp">
 
 
-                <Button
-                    android:id="@+id/dialog_button_cancel"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:text="CANCEL"
-                    android:background="@color/colorPrimary"
-                    android:textColor="#fff"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"/>
+        </ScrollView>
 
-                <Button
-                    android:id="@+id/dialog_button_ok"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:text="OK"
-                    android:background="@color/colorPrimary"
-                    android:textColor="#fff"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"/>
-
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-
-
-
-    </ScrollView>
+    </android.support.v7.widget.CardView>
 
 
 

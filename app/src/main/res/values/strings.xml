@@ -38,6 +38,19 @@
     <string name="card_action_copy_card_number">Copy Card Number</string>
     <string name="action_copy_card_pin">Copy Card Pin</string>
     <string name="action_copy_ccv">Copy CCV</string>
+    <string name="action_backup_on_cloud">Backup on cloud</string>
+
+
+
+    <string-array name="catagory">
+        <item>Select a category</item>
+        <item>Bank Account</item>
+        <item>Debit / Credit Card</item>
+        <item>Cryptocurrency</item>
+        <item>Email Account</item>
+        <item>Social Media</item>
+        <item>Others</item>
+    </string-array>
 
 
 </resources>

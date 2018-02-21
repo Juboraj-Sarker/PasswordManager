@@ -76,7 +76,7 @@ public class CardDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_1, String.valueOf(cardModel.getID()));
+       // values.put(COLUMN_1, String.valueOf(cardModel.getId()));
         values.put(COLUMN_2, cardModel.getBankName());
         values.put(COLUMN_3, cardModel.getNameOnCard());
         values.put(COLUMN_4, cardModel.getCardNumber());
@@ -107,7 +107,7 @@ public class CardDatabase extends SQLiteOpenHelper {
 
                 CardModel cardModel = new CardModel();
 
-                cardModel.setID(Integer.parseInt(cursor.getString(0)));
+                cardModel.setId(Integer.parseInt(cursor.getString(0)));
                 cardModel.setBankName(cursor.getString(1));
                 cardModel.setNameOnCard(cursor.getString(2));
                 cardModel.setCardNumber(cursor.getString(3));
@@ -134,7 +134,7 @@ public class CardDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_1, String.valueOf(cardModel.getID()));
+       // values.put(COLUMN_1, String.valueOf(cardModel.getId()));
         values.put(COLUMN_2, cardModel.getBankName());
         values.put(COLUMN_3, cardModel.getNameOnCard());
         values.put(COLUMN_4, cardModel.getCardNumber());
@@ -147,7 +147,7 @@ public class CardDatabase extends SQLiteOpenHelper {
 
 
        return db.update(TABLE_NAME, values, COLUMN_1 + " = ?",
-                new String[] { String.valueOf(cardModel.getID()) } );
+                new String[] { String.valueOf(cardModel.getId()) } );
 
     }
 
@@ -157,7 +157,7 @@ public class CardDatabase extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_1 + " = ?",
-                new String[] { String.valueOf(cardModel.getID() ) });
+                new String[] { String.valueOf(cardModel.getId() ) });
 
 
     }

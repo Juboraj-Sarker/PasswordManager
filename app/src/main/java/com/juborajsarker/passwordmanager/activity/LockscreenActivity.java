@@ -21,6 +21,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
     public SharedPreferences sharedPreferences;
 
+
     Button okBTN;
     EditText inputTV;
     Vibrator vibrator;
@@ -68,8 +69,10 @@ public class LockscreenActivity extends AppCompatActivity {
 
                     if (getPassword.equals(masterPassword)){
 
+                        Intent intent = new Intent(LockscreenActivity.this, MainActivity.class);
+                        intent.putExtra("fragmentName", "home");
                         Toast.makeText(LockscreenActivity.this, "Success !!!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LockscreenActivity.this, MainActivity.class));
+                        startActivity(intent);
                         finish();
 
                     }else {

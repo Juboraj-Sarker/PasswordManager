@@ -1,10 +1,10 @@
 package com.juborajsarker.passwordmanager.model;
 
 /**
- * Created by jubor on 2/16/2018.
+ * Created by jubor on 2/20/2018.
  */
 
-public class CardModel {
+public class FirebaseCardModel {
 
     int id;
     String bankName;
@@ -14,16 +14,17 @@ public class CardModel {
     String ccv;
     String validityMonth;
     String validityYear;
-    char header;
+    String header;
     String type;
 
-    public CardModel() {
+
+    public FirebaseCardModel() {
+
 
     }
 
-    public CardModel(int id, String bankName, String nameOnCard, String cardNumber, String pin,
-                     String ccv, String validityMonth, String validityYear, char header, String type) {
-
+    public FirebaseCardModel(int id, String bankName, String nameOnCard, String cardNumber, String pin,
+                             String ccv, String validityMonth, String validityYear, String header, String type) {
         this.id = id;
         this.bankName = bankName;
         this.nameOnCard = nameOnCard;
@@ -34,7 +35,6 @@ public class CardModel {
         this.validityYear = validityYear;
         this.header = header;
         this.type = type;
-
     }
 
     public int getId() {
@@ -42,7 +42,7 @@ public class CardModel {
     }
 
     public void setId(int ID) {
-        this.id = ID;
+        this.id = id;
     }
 
     public String getBankName() {
@@ -101,11 +101,11 @@ public class CardModel {
         this.validityYear = validityYear;
     }
 
-    public char getHeader() {
+    public String getHeader() {
         return header;
     }
 
-    public void setHeader(char header) {
+    public void setHeader(String header) {
         this.header = header;
     }
 

@@ -1,8 +1,8 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.juborajsarker.passwordmanager.fragments.categories.EmailFragment">
 
@@ -32,24 +32,49 @@
         </LinearLayout>
 
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="60dp">
 
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_margin="5dp"
-                android:src="@drawable/ic_add_circle"
-                android:tint="#fff" />
+                android:orientation="vertical">
 
 
-        </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+
+                    <TextView
+                        android:id="@+id/backupTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Click here to backup All data on cloud"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:layout_marginRight="50dp"
+                        android:gravity="center"/>
+
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="5dp"
+                        app:srcCompat="@drawable/ic_add_circle"
+                        android:tint="#fff" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
 

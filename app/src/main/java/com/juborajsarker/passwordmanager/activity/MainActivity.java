@@ -20,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +30,6 @@ import com.juborajsarker.passwordmanager.fragments.categories.CryptoFragment;
 import com.juborajsarker.passwordmanager.fragments.categories.EmailFragment;
 import com.juborajsarker.passwordmanager.fragments.categories.HomeFragment;
 import com.juborajsarker.passwordmanager.fragments.categories.OthersFragment;
-import com.juborajsarker.passwordmanager.fragments.categories.ServerFragment;
 import com.juborajsarker.passwordmanager.fragments.categories.SocialFragment;
 import com.juborajsarker.passwordmanager.fragments.cloud.BackupFragment;
 import com.juborajsarker.passwordmanager.fragments.cloud.RestoreFragment;
@@ -43,10 +41,10 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fragmentManager;
     SharedPreferences sharedPreferences;
-    ImageView imageView;
     TextView myTV;
-
     View header;
+
+    String fragmentName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +52,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        fragmentName = intent.getStringExtra("fragmentName");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -78,12 +79,62 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, new HomeFragment()).commit();
-        setTitle("Password Manager");
+        setInitialFragment();
 
 
 
+
+
+    }
+
+    private void setInitialFragment() {
+
+        if (fragmentName.equals("home")){
+
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+            setTitle("Password Manager");
+
+        }else if (fragmentName.equals("bank")){
+
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new BankFragment()).commit();
+            setTitle("Bank Account");
+
+        }else if (fragmentName.equals("crypto")){
+
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new CryptoFragment()).commit();
+            setTitle("Cryptocurrency");
+
+        }else if (fragmentName.equals("card")){
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new CardFragment()).commit();
+            setTitle("Debit / Credit card");
+
+        }else if (fragmentName.equals("email")){
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new EmailFragment()).commit();
+            setTitle("Email Account");
+
+        }else if (fragmentName.equals("social")){
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new SocialFragment()).commit();
+            setTitle("Social Media");
+
+        }else if (fragmentName.equals("other")){
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, new OthersFragment()).commit();
+            setTitle("Others");
+
+        }
     }
 
     @Override
@@ -228,23 +279,6 @@ public class MainActivity extends AppCompatActivity
 
             fragmentManager.beginTransaction().add(R.id.container, new EmailFragment()).commit();
             setTitle("Email Account");
-
-
-
-        }else if (id == R.id.nav_server) {
-
-
-            for(Fragment fragment:getSupportFragmentManager().getFragments()){
-
-                if(fragment!=null) {
-
-                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                }
-            }
-
-
-            fragmentManager.beginTransaction().add(R.id.container, new ServerFragment()).commit();
-            setTitle("Server or Networking");
 
 
 

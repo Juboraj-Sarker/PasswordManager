@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,10 @@ public class ViewActivity extends AppCompatActivity {
     TextView titleTV, websiteTV, passwordTV, emailTV;
     ImageView searchIV, browseIV, copyPasswordIV, copyEmailIV;
     Button deleteBTN, editBTN;
+    LinearLayout buttonLayout;
     String TABLE_NAME;
+    int flag;
+
 
     AlertDialog alertDialog;
 
@@ -71,6 +75,7 @@ public class ViewActivity extends AppCompatActivity {
         type = intent.getStringExtra("type");
         TABLE_NAME = intent.getStringExtra("TABLE_NAME");
         email = intent.getStringExtra("email");
+        flag = intent.getIntExtra("flag", 0);
 
 
 
@@ -136,6 +141,15 @@ public class ViewActivity extends AppCompatActivity {
 
         deleteBTN = (Button) findViewById(R.id.view_delete_BTN);
         editBTN = (Button) findViewById(R.id.view_edit_BTN);
+
+        buttonLayout = (LinearLayout) findViewById(R.id.button_LAYOUT);
+
+        if (flag == 1){
+
+            buttonLayout.setVisibility(View.GONE);
+        }
+
+
 
 
     }

@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +24,19 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.activity.CardDetailsActivity;
+import com.juborajsarker.passwordmanager.activity.RegisterActivity;
 import com.juborajsarker.passwordmanager.database.CardDatabase;
 import com.juborajsarker.passwordmanager.model.CardModel;
+import com.juborajsarker.passwordmanager.model.FirebaseCardModel;
+import com.juborajsarker.passwordmanager.model.UserInfo;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by jubor on 2/16/2018.
@@ -41,6 +50,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     CardDatabase cardDatabase;
     RecyclerView recyclerView;
 
+    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference2;
+    String uid, prefEmail;
+    boolean onlineRegister = false;
     public SharedPreferences sharedPreferences;
 
     int idValues;
@@ -131,6 +144,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                 intent.putExtra("month", cardModel.getValidityMonth());
                 intent.putExtra("year", cardModel.getValidityYear());
                 intent.putExtra("bankName", cardModel.getBankName());
+                intent.putExtra("position", position);
 
                 CardAdapter adapter = new CardAdapter(context, cardModelList, cardDatabase, recyclerView);
                 recyclerView.setAdapter(adapter);
@@ -280,6 +294,62 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
                 }
 
+                case R.id.card_action_backup:{
+
+
+                    sharedPreferences = context.getSharedPreferences("registerStatus", MODE_PRIVATE);
+                    onlineRegister = sharedPreferences.getBoolean("onlineRegisterStatus", false);
+                    prefEmail = sharedPreferences.getString("email","");
+                    uid = sharedPreferences.getString("uid","");
+
+
+                    if ( !onlineRegister ||  prefEmail.equals("") || uid.equals("") ){
+
+                        Toast.makeText(context, "You are not logged in as registered user. Please login first.",
+                                Toast.LENGTH_SHORT).show();
+
+
+                        AlertDialog.Builder builder;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog);
+                        } else {
+                            builder = new AlertDialog.Builder(context);
+                        }
+                        builder.setTitle("Login or Register first")
+                                .setMessage("\nYou did not logged in as online user. May be you did not register yet. If you " +
+                                        "did not register you may register first. Or you can simply login if you already register. " +
+                                        "\nDo you want to go login or register page?")
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        context.startActivity(new Intent(context, RegisterActivity.class));
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                                .show();
+
+                    }else {
+
+
+                        try {
+
+                            prepareForFirebase(position);
+
+                        }catch (Exception e){
+
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    break;
+                }
+
 
                 case R.id.card_action_view: {
 
@@ -295,6 +365,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                     intent.putExtra("month", cardModel.getValidityMonth());
                     intent.putExtra("year", cardModel.getValidityYear());
                     intent.putExtra("bankName", cardModel.getBankName());
+                    intent.putExtra("position", position);
 
                     CardAdapter adapter = new CardAdapter(context, cardModelList, cardDatabase, recyclerView);
                     recyclerView.setAdapter(adapter);
@@ -312,7 +383,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                     cardDatabase = new CardDatabase(context);
                     cardModelList = cardDatabase.getAllData();
                     cardModel = cardModelList.get(position);
-                    idValues = cardModel.getID();
+                    idValues = cardModel.getId();
 
                     showDialog();
 
@@ -519,6 +590,99 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         alertDialog.dismiss();
 
 
+
+    }
+
+
+
+    public String getVersionName(int os_version){
+
+
+        if (os_version == Build.VERSION_CODES.JELLY_BEAN || os_version == Build.VERSION_CODES.JELLY_BEAN_MR1 || os_version == Build.VERSION_CODES.JELLY_BEAN_MR2){
+
+            return "JELLY BEAN";
+
+
+        }else if (os_version == Build.VERSION_CODES.KITKAT || os_version == Build.VERSION_CODES.KITKAT_WATCH){
+
+            return "KITKAT";
+
+
+        }else if (os_version == Build.VERSION_CODES.LOLLIPOP || os_version == Build.VERSION_CODES.LOLLIPOP_MR1){
+
+            return "LOLLIPOP";
+
+
+        }else if (os_version == Build.VERSION_CODES.M ){
+
+            return "MARSHMALLOW";
+
+
+        }else if (os_version == Build.VERSION_CODES.N || os_version == Build.VERSION_CODES.N_MR1){
+
+            return "NOUGAT";
+
+
+        }else if (os_version == Build.VERSION_CODES.O ){
+
+            return "OREO";
+        }
+
+        else {
+
+            return "UNKNOWN";
+        }
+    }
+
+
+
+
+    public void prepareForFirebase(int position){
+
+
+        cardModelList = cardDatabase.getAllData();
+        CardModel cardModel = cardModelList.get(position);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("User/" + uid
+                + "/Account Data/" + cardModel.getType());
+
+        FirebaseCardModel firebaseCardModel = new FirebaseCardModel(cardModel.getId(),
+                cardModel.getBankName(),
+                cardModel.getNameOnCard(),
+                cardModel.getCardNumber(),
+                cardModel.getPin(),
+                cardModel.getCcv(),
+                cardModel.getValidityMonth(),
+                cardModel.getValidityYear(),
+                String.valueOf(cardModel.getHeader()),
+                cardModel.getType());
+
+        String key = databaseReference.push().getKey();
+        databaseReference.child(key).setValue(firebaseCardModel);
+
+
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("User/" + uid
+                + "/Other Data");
+
+
+        String manufacturer = Build.MANUFACTURER;
+        String brand = Build.BRAND;
+        String modelName = Build.MODEL;
+        String deviceID = Build.SERIAL;
+
+
+        int api_level = Build.VERSION.SDK_INT;
+        String  os_version  = Build.VERSION.RELEASE;
+        String versionName = getVersionName(api_level);
+
+
+
+        UserInfo userInfo = new UserInfo(prefEmail, uid, manufacturer, brand, modelName, deviceID,
+                os_version, api_level, versionName);
+
+        databaseReference2.setValue(userInfo);
+
+        Toast.makeText(context, "Successfully added on cloud !!!", Toast.LENGTH_SHORT).show();
 
     }
 

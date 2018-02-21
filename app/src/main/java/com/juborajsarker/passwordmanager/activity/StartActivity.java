@@ -96,7 +96,9 @@ public class StartActivity extends AppCompatActivity {
                             editor.putBoolean("passwordSet", true);
                             editor.commit();
 
-                            startActivity(new Intent(StartActivity.this, MainActivity.class));
+                            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                            intent.putExtra("fragmentName", "home");
+                            startActivity(intent);
                             finish();
                         }
 
@@ -104,7 +106,7 @@ public class StartActivity extends AppCompatActivity {
 
 
                             count --;
-                            inputTV.setError("ModelPassword not matched ");
+                            inputTV.setError("Model Password not matched ");
                         }
                     }
 

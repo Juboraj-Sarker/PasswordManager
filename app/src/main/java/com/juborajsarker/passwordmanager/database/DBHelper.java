@@ -64,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String CREATE_TABLE_BANK = "CREATE TABLE "
                 + BANK_TABLE + "("
-                + COLUMN_1 + " INTEGER PRIMARY KEY,"
+                + COLUMN_1 + " INTEGER PRIMARY KEY ,"
                 + COLUMN_2 + " TEXT,"
                 + COLUMN_3 + " TEXT,"
                 + COLUMN_4 + " TEXT,"
@@ -162,7 +162,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_1, String.valueOf(modelPassword.getId()));
+      //  values.put(COLUMN_1, String.valueOf(modelPassword.getId()));
         values.put(COLUMN_2, modelPassword.getTitle());
         values.put(COLUMN_3, modelPassword.getPassword());
         values.put(COLUMN_4, modelPassword.getWebsite());
@@ -238,7 +238,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_1, String.valueOf(modelPassword.getId()));
+     //   values.put(COLUMN_1, String.valueOf(modelPassword.getId()));
         values.put(COLUMN_2, modelPassword.getTitle());
         values.put(COLUMN_3, modelPassword.getPassword());
         values.put(COLUMN_4, modelPassword.getWebsite());

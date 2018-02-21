@@ -31,7 +31,8 @@
         <activity android:name=".activity.ViewActivity" />
         <activity android:name=".activity.WebviewActivity" />
         <activity android:name=".activity.CardDetailsActivity" />
-        <activity android:name=".activity.ProfileActivity"></activity>
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>
