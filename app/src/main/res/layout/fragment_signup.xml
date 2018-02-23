@@ -52,9 +52,12 @@
                         <EditText
                             android:id="@+id/emailET"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:background="@drawable/edit_text_design"
                             android:padding="8dp"
+                            android:textSize="14sp"
+                            android:hint="Enter a valid email"
+                            android:inputType="textEmailAddress"
                             android:layout_margin="5dp"/>
 
 
@@ -81,10 +84,13 @@
                         <EditText
                             android:id="@+id/passwordET"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:background="@drawable/edit_text_design"
                             android:padding="8dp"
-                            android:layout_margin="5dp"/>
+                            android:inputType="textPassword"
+                            android:layout_margin="5dp"
+                            android:hint="Tips: You may use your master password"
+                            android:textSize="14sp"/>
 
 
                     </LinearLayout>
@@ -109,9 +115,12 @@
                         <EditText
                             android:id="@+id/confPassET"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:background="@drawable/edit_text_design"
                             android:padding="8dp"
+                            android:textSize="14sp"
+                            android:inputType="textPassword"
+                            android:hint="Confirm your password"
                             android:layout_margin="5dp" />
 
 

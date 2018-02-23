@@ -3,7 +3,9 @@ package com.juborajsarker.passwordmanager.activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -20,6 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.database.DBHelper;
 import com.juborajsarker.passwordmanager.model.ModelPassword;
@@ -28,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewActivity extends AppCompatActivity {
+
+    InterstitialAd mInterstitialAd;
+
 
     TextView titleTV, websiteTV, passwordTV, emailTV;
     ImageView searchIV, browseIV, copyPasswordIV, copyEmailIV;
@@ -88,7 +96,8 @@ public class ViewActivity extends AppCompatActivity {
 
 
 
-
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen1));
 
 
 
@@ -164,7 +173,28 @@ public class ViewActivity extends AppCompatActivity {
 
 
 
-                deleteData();
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(ViewActivity.this, android.R.style.Theme_Material_Light_Dialog);
+                } else {
+                    builder = new AlertDialog.Builder(ViewActivity.this);
+                }
+                builder.setTitle("DELETE file?")
+                        .setMessage("Are you sure you want to proceed with the deletion?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteData();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+
+
 
 
 
@@ -314,6 +344,18 @@ public class ViewActivity extends AppCompatActivity {
 
     private void deleteData() {
 
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+        mInterstitialAd.loadAd(adRequest);
+
+
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
+
+
 
         passwordList = dbHelper.getAllData(TABLE_NAME);
         ModelPassword modelPassword = passwordList.get(positionValue);
@@ -334,6 +376,7 @@ public class ViewActivity extends AppCompatActivity {
 
 
     }
+
 
 
 
@@ -419,7 +462,34 @@ public class ViewActivity extends AppCompatActivity {
                         website = "null";
                     }
 
-                    prepare();
+                    if (title.charAt(0) == ' ' || email.charAt(0) == ' ' || website.charAt(0) ==' '){
+
+                        if (title.charAt(0) == ' '){
+
+                            titleValue.setError("Title cannot start with space");
+                        }
+
+                        if (email.charAt(0) == ' '){
+
+                            emailValue.setError("Email cannot start with space");
+                        }
+
+                        if (website.charAt(0) == ' '){
+
+                            websiteValue.setError("Website cannot start with space");
+                        }
+
+                    }else {
+
+                        if (!emailValidation(email)){
+
+                            emailValue.setError("This is not a valid email format.\nPlease check your input");
+
+                        }else {
+
+                            prepare();
+                        }
+                    }
 
                     titleTV.setText(title);
                     passwordTV.setText(password);
@@ -466,6 +536,32 @@ public class ViewActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    private boolean emailValidation(String email) {
+
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String inputEmail = email.trim();
+
+        if (inputEmail.matches(emailPattern)){
+
+            return true;
+
+        }else {
+
+            return false;
+        }
+
+
+    }
+
+
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
 }

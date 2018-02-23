@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +50,6 @@ public class RestoreFragment extends Fragment {
 
     View view;
 
-    ProgressDialog progressDialog;
 
     LinearLayout restoreLayout;
     Spinner categorySpinner;
@@ -167,6 +167,7 @@ public class RestoreFragment extends Fragment {
 
                     index = 0;
                     recyclerView.setAdapter(null);
+                    restoreCV.setVisibility(View.GONE);
 
 
 
@@ -176,9 +177,8 @@ public class RestoreFragment extends Fragment {
                     databaseReference = FirebaseDatabase.getInstance().getReference("User/" + userPref
                             + "/Account Data/BANK");
 
-
-
                     prepareForFireBase("BANK");
+
 
 
 
@@ -190,6 +190,8 @@ public class RestoreFragment extends Fragment {
 
                     prepareForFireBaseCard("CARD");
 
+
+
                 }else if (position == 3){
 
                     index = 3;
@@ -198,14 +200,15 @@ public class RestoreFragment extends Fragment {
 
                     prepareForFireBase("CRYPTOCURRENCY");
 
+
                 }else if (position == 4){
 
                     index = 4;
                     databaseReference = FirebaseDatabase.getInstance().getReference("User/" + userPref
                             + "/Account Data/EMAIL");
 
-
                     prepareForFireBase("EMAIL");
+
 
                 }else if (position == 5){
 
@@ -215,14 +218,15 @@ public class RestoreFragment extends Fragment {
 
                     prepareForFireBase("SOCIAL");
 
+
                 }else if (position == 6){
 
                     index = 6;
                     databaseReference = FirebaseDatabase.getInstance().getReference("User/" + userPref
                             + "/Account Data/OTHERS");
 
-
                     prepareForFireBase("OTHERS");
+
 
                 }
             }
@@ -230,6 +234,84 @@ public class RestoreFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+
+
+        restoreCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (categorySpinner.getSelectedItemPosition() == 1){
+
+                    dbHelper = new DBHelper(getContext(), "bankTable");
+                    for (int i = 0; i< passwordList.size(); i++){
+
+                        ModelPassword modelPassword = passwordList.get(i);
+                        dbHelper.insertData(modelPassword, "bankTable");
+                        Toast.makeText(getContext(), "Successfully restored data from cloud !!!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else if (categorySpinner.getSelectedItemPosition() == 2){
+
+                    cardDatabase = new CardDatabase(getContext());
+
+                    for (int i = 0; i< cardModelList.size(); i++){
+
+                        CardModel cardModel = cardModelList.get(i);
+                        cardDatabase.insertData(cardModel );
+                        Toast.makeText(getContext(), "Successfully restored data from cloud !!!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else if (categorySpinner.getSelectedItemPosition() == 3){
+
+                    dbHelper = new DBHelper(getContext(), "cryptoTable");
+                    for (int i = 0; i< passwordList.size(); i++){
+
+                        ModelPassword modelPassword = passwordList.get(i);
+                        dbHelper.insertData(modelPassword, "cryptoTable");
+                        Toast.makeText(getContext(), "Successfully restored data from cloud !!!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else if (categorySpinner.getSelectedItemPosition() == 4){
+
+                    dbHelper = new DBHelper(getContext(), "emailTable");
+                    for (int i = 0; i< passwordList.size(); i++){
+
+                        ModelPassword modelPassword = passwordList.get(i);
+                        dbHelper.insertData(modelPassword, "emailTable");
+                        Toast.makeText(getContext(), "Successfully restored data from cloud !!!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else if (categorySpinner.getSelectedItemPosition() == 5){
+
+                    dbHelper = new DBHelper(getContext(), "socialTable");
+                    for (int i = 0; i< passwordList.size(); i++){
+
+                        ModelPassword modelPassword = passwordList.get(i);
+                        dbHelper.insertData(modelPassword, "socialTable");
+                        Toast.makeText(getContext(), "Successfully restored data from cloud !!!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else if (categorySpinner.getSelectedItemPosition() == 6){
+
+                    dbHelper = new DBHelper(getContext(), "otherTable");
+                    for (int i = 0; i< passwordList.size(); i++){
+
+                        ModelPassword modelPassword = passwordList.get(i);
+                        dbHelper.insertData(modelPassword, "otherTable");
+                        Toast.makeText(getContext(), "Successfully restored data from cloud !!!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
             }
         });
 
@@ -298,6 +380,19 @@ public class RestoreFragment extends Fragment {
                 progressDialog.dismiss();
 
 
+                if (passwordList.size() > 0){
+
+                    restoreCV.setVisibility(View.VISIBLE);
+
+                }else {
+
+                    restoreCV.setVisibility(View.GONE);
+                }
+
+
+
+
+
 
             }
 
@@ -361,6 +456,17 @@ public class RestoreFragment extends Fragment {
 
 
 
+                if (cardModelList.size() > 0){
+
+                    restoreCV.setVisibility(View.VISIBLE);
+
+                }else {
+
+                    restoreCV.setVisibility(View.GONE);
+                }
+
+
+
             }
 
             @Override
@@ -373,4 +479,7 @@ public class RestoreFragment extends Fragment {
 
 
     }
+
+
+
 }

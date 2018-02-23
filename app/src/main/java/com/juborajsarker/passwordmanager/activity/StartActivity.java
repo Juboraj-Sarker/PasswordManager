@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.juborajsarker.passwordmanager.R;
 
 public class StartActivity extends AppCompatActivity {
@@ -28,6 +31,8 @@ public class StartActivity extends AppCompatActivity {
     String password1, password2;
     int count, counter = 0;
     Vibrator vibrator;
+
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,9 @@ public class StartActivity extends AppCompatActivity {
         }
 
 
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen1));
+
         init();
     }
 
@@ -64,12 +72,12 @@ public class StartActivity extends AppCompatActivity {
 
 
 
-                if (inputTV.getText().toString().length() <4){
+                if (inputTV.getText().toString().length() <6){
 
                     inputTV.setError("Please select a valid password");
                     counter = inputTV.getText().toString().length();
 
-                }else if (inputTV.getText().toString().length() == 4){
+                }else if (inputTV.getText().toString().length() == 6){
 
                     count ++;
                     messageTV.setText("Retype master password");
@@ -89,6 +97,22 @@ public class StartActivity extends AppCompatActivity {
 
                         if (password1.equals(password2)){
 
+
+
+                            AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+                            mInterstitialAd.loadAd(adRequest);
+
+
+
+                            mInterstitialAd.setAdListener(new AdListener() {
+                                public void onAdLoaded() {
+                                    showInterstitial();
+                                }
+                            });
+
+
+
+
                             Toast.makeText(StartActivity.this, "Success !!!", Toast.LENGTH_SHORT).show();
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -100,6 +124,12 @@ public class StartActivity extends AppCompatActivity {
                             intent.putExtra("fragmentName", "home");
                             startActivity(intent);
                             finish();
+
+
+
+
+
+
                         }
 
                         else if (password1 != password2){
@@ -123,7 +153,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("0");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -135,7 +165,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("1");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -148,7 +178,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("2");
 
-                if (counter < 4){
+                if (counter <6){
 
                     vibrator.vibrate(100);
                 }
@@ -162,7 +192,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("3");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -177,7 +207,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("4");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -192,7 +222,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("5");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -206,7 +236,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("6");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -220,7 +250,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("7");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -234,7 +264,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("8");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -248,7 +278,7 @@ public class StartActivity extends AppCompatActivity {
 
                 inputTV.append("9");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -324,6 +354,11 @@ public class StartActivity extends AppCompatActivity {
 
 
 
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
 
 
 

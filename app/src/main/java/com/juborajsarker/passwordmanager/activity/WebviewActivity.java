@@ -44,6 +44,7 @@ public class WebviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         String url = intent.getStringExtra("url");
+        setTitle(url);
 
         webView = (WebView) findViewById(R.id.webView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);

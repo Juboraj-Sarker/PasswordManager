@@ -391,15 +391,30 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 case R.id.card_action_delete:{
 
 
-                    dbHelper = new DBHelper(context, TABLE_NAME);
-                    passwordList = dbHelper.getAllData(TABLE_NAME);
-                    ModelPassword modelPassword = passwordList.get(position);
-                    dbHelper.deletePassword( modelPassword, TABLE_NAME);
 
-                    passwordList.remove(position);
-                    CustomAdapter adapter = new CustomAdapter(context, passwordList, dbHelper, recyclerView, TABLE_NAME);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("DELETE file?")
+                            .setMessage("Are you sure you want to proceed with the deletion?")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    deleteData(position);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+
+
+
 
 
                     break;
@@ -413,6 +428,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
     }
 
+    private void deleteData(int position) {
+
+        dbHelper = new DBHelper(context, TABLE_NAME);
+        passwordList = dbHelper.getAllData(TABLE_NAME);
+        ModelPassword modelPassword = passwordList.get(position);
+        dbHelper.deletePassword( modelPassword, TABLE_NAME);
+
+        passwordList.remove(position);
+        CustomAdapter adapter = new CustomAdapter(context, passwordList, dbHelper, recyclerView, TABLE_NAME);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
 
     private void loadURL(String website) {
@@ -524,7 +551,35 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                         website = "null";
                     }
 
-                    prepare();
+                    if (title.charAt(0) == ' ' || email.charAt(0) == ' ' || website.charAt(0) ==' '){
+
+                        if (title.charAt(0) == ' '){
+
+                            titleValue.setError("Title cannot start with space");
+                        }
+
+                        if (email.charAt(0) == ' '){
+
+                            emailValue.setError("Email cannot start with space");
+                        }
+
+                        if (website.charAt(0) == ' '){
+
+                            websiteValue.setError("Website cannot start with space");
+                        }
+
+                    }else {
+
+                        if (!emailValidation(email)){
+
+                            emailValue.setError("This is not a valid email format.\nPlease check your input");
+
+                        }else {
+
+                            prepare();
+                        }
+
+                    }
 
                 }
 
@@ -651,7 +706,39 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 modelPasswords.getType(),
                 modelPasswords.getEmail());
 
-        String key = databaseReference.push().getKey();
+
+        int keyValue = 0;
+        int temp = 0;
+
+        for (int i=0; i<model.getTitle().length(); i++){
+
+            temp = model.getTitle().charAt(i);
+            keyValue = keyValue + temp;
+        }
+
+
+        for (int i=0; i<model.getEmail().length(); i++){
+
+            temp = model.getEmail().charAt(i);
+            keyValue = keyValue + temp;
+        }
+
+
+        for (int i=0; i<model.getPassword().length(); i++){
+
+            temp = model.getPassword().charAt(i);
+            keyValue = keyValue + temp;
+        }
+
+        for (int i=0; i<model.getWebsite().length(); i++){
+
+            temp = model.getWebsite().charAt(i);
+            keyValue = keyValue + temp;
+        }
+
+
+
+        String key = String.valueOf(keyValue);
         databaseReference.child(key).setValue(model);
 
         databaseReference2 = FirebaseDatabase.getInstance().getReference("User/" + uid
@@ -676,6 +763,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         databaseReference2.setValue(userInfo);
 
         Toast.makeText(context, "Successfully added on cloud !!!", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+
+    private boolean emailValidation(String email) {
+
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String inputEmail = email.trim();
+
+        if (inputEmail.matches(emailPattern)){
+
+            return true;
+
+        }else {
+
+            return false;
+        }
+
+
     }
 
 }

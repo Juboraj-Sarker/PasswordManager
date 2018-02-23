@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,6 +29,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class SignupFragment extends Fragment {
+
+    InterstitialAd mInterstitialAd;
 
     View view;
 
@@ -57,6 +62,9 @@ public class SignupFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen1));
+
         init();
         setAction();
 
@@ -86,6 +94,8 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+
                 if (!isEmpty()){
 
                     if (emailValidation() && passwordValidation()){
@@ -93,6 +103,8 @@ public class SignupFragment extends Fragment {
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.setMessage("Please wait .....");
                         progressDialog.show();
+
+
 
                         email = emailET.getText().toString();
                         password = passwordET.getText().toString();
@@ -103,6 +115,19 @@ public class SignupFragment extends Fragment {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                                         if (task.isSuccessful()){
+
+
+                                            AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+                                            mInterstitialAd.loadAd(adRequest);
+
+
+
+                                            mInterstitialAd.setAdListener(new AdListener() {
+                                                public void onAdLoaded() {
+                                                    showInterstitial();
+                                                }
+                                            });
+
 
                                             Toast.makeText(getContext(), "Successfully created user", Toast.LENGTH_SHORT).show();
                                             progressDialog.dismiss();
@@ -215,6 +240,13 @@ public class SignupFragment extends Fragment {
             return false;
         }
 
+    }
+
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
 }

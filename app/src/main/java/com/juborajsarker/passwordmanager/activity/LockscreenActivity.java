@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.juborajsarker.passwordmanager.R;
 
 public class LockscreenActivity extends AppCompatActivity {
@@ -28,6 +31,8 @@ public class LockscreenActivity extends AppCompatActivity {
     int counter = 0;
     String masterPassword;
 
+    InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,9 @@ public class LockscreenActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sharedPreferences = this.getSharedPreferences("settings", MODE_PRIVATE);
         masterPassword = sharedPreferences.getString("masterPassword", "");
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen1));
 
         init();
 
@@ -54,7 +62,7 @@ public class LockscreenActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (inputTV.getText().toString().length() < 4 ){
+                if (inputTV.getText().toString().length() < 6 ){
 
                     inputTV.setError("Wrong password !!!");
 
@@ -62,18 +70,33 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 }
 
-                if (inputTV.getText().toString().length() == 4){
+                if (inputTV.getText().toString().length() == 6){
 
 
                     String getPassword = inputTV.getText().toString();
 
                     if (getPassword.equals(masterPassword)){
 
+
+
+                        AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+                        mInterstitialAd.loadAd(adRequest);
+
+
+
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            public void onAdLoaded() {
+                                showInterstitial();
+                            }
+                        });
+
                         Intent intent = new Intent(LockscreenActivity.this, MainActivity.class);
                         intent.putExtra("fragmentName", "home");
                         Toast.makeText(LockscreenActivity.this, "Success !!!", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                         finish();
+
+
 
                     }else {
 
@@ -95,7 +118,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("0");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -107,7 +130,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("1");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -120,7 +143,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("2");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -134,7 +157,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("3");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -149,7 +172,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("4");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -164,7 +187,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("5");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -178,7 +201,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("6");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -192,7 +215,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("7");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -206,7 +229,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("8");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -220,7 +243,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 inputTV.append("9");
 
-                if (counter < 4){
+                if (counter < 6){
 
                     vibrator.vibrate(100);
                 }
@@ -295,5 +318,11 @@ public class LockscreenActivity extends AppCompatActivity {
     }
 
 
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
 
 }

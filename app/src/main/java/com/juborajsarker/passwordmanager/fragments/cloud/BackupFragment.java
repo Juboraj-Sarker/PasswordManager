@@ -376,8 +376,39 @@ public class BackupFragment extends Fragment {
                         modelPasswords.getType(),
                         modelPasswords.getEmail());
 
-                
-                String key = databaseReference.push().getKey();
+
+                int keyValue = 0;
+                int temp = 0;
+
+                for (int j=0; j<model.getTitle().length(); j++){
+
+                    temp = model.getTitle().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<model.getEmail().length(); j++){
+
+                    temp = model.getEmail().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<model.getPassword().length(); j++){
+
+                    temp = model.getPassword().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+                for (int j=0; j<model.getWebsite().length(); j++){
+
+                    temp = model.getWebsite().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+
+                String key = String.valueOf(keyValue);
                 databaseReference.child(key).setValue(model);
 
             }
@@ -465,7 +496,59 @@ public class BackupFragment extends Fragment {
                     String.valueOf(cardModel.getHeader()),
                     cardModel.getType());
 
-            String key = databaseReference.push().getKey();
+            int keyValue = 0;
+            int temp = 0;
+
+            for (int j=0; j<cardModel.getCardNumber().length(); j++){
+
+                temp = cardModel.getCardNumber().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+
+            for (int j=0; j<cardModel.getNameOnCard().length(); j++){
+
+                temp = cardModel.getNameOnCard().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+            for (int j=0; j<cardModel.getPin().length(); j++){
+
+                temp = cardModel.getPin().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+
+            for (int j=0; j<cardModel.getCcv().length(); j++){
+
+                temp = cardModel.getCcv().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+            for (int j=0; j<cardModel.getValidityMonth().length(); j++){
+
+                temp = cardModel.getValidityMonth().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+
+            for (int j=0; j<cardModel.getValidityYear().length(); j++){
+
+                temp = cardModel.getValidityYear().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+            for (int j=0; j<cardModel.getBankName().length(); j++){
+
+                temp = cardModel.getBankName().charAt(j);
+                keyValue = keyValue + temp;
+            }
+
+
+
+
+
+            String key = String.valueOf(keyValue);
             databaseReference.child(key).setValue(firebaseCardModel);
 
         }

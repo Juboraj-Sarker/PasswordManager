@@ -12,14 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.juborajsarker.passwordmanager.R;
+import com.juborajsarker.passwordmanager.activity.ForgetPasswordActivity;
 import com.juborajsarker.passwordmanager.activity.MainActivity;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -27,10 +32,13 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SigninFragment extends Fragment {
 
+    InterstitialAd mInterstitialAd;
+
     View view;
 
     EditText emailET, passwordET;
     Button signInBTN;
+    TextView forgotPassTV;
 
     private FirebaseAuth firebaseAuth;
     private SharedPreferences sharedPreferences;
@@ -55,6 +63,9 @@ public class SigninFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen1));
+
         init();
         setAction();
 
@@ -70,6 +81,8 @@ public class SigninFragment extends Fragment {
         passwordET = (EditText) view.findViewById(R.id.passwordET);
 
         signInBTN = (Button) view.findViewById(R.id.btnSignIn);
+
+        forgotPassTV = (TextView) view.findViewById(R.id.forgotPass_TV);
 
     }
 
@@ -108,6 +121,16 @@ public class SigninFragment extends Fragment {
                }
 
 
+            }
+        });
+
+
+        forgotPassTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                startActivity(new Intent(getContext(), ForgetPasswordActivity.class));
             }
         });
     }
@@ -162,6 +185,20 @@ public class SigninFragment extends Fragment {
 
                         if (task.isSuccessful()){
 
+
+
+                            AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+                            mInterstitialAd.loadAd(adRequest);
+
+
+
+                            mInterstitialAd.setAdListener(new AdListener() {
+                                public void onAdLoaded() {
+                                    showInterstitial();
+                                }
+                            });
+
+
                             Toast.makeText(getContext(), "Login Successful !!!", Toast.LENGTH_SHORT).show();
 
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -193,6 +230,17 @@ public class SigninFragment extends Fragment {
 
                     }
                 });
+
+
     }
+
+
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
+
 
 }

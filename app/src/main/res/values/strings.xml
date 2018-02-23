@@ -41,7 +41,6 @@
     <string name="action_backup_on_cloud">Backup on cloud</string>
 
 
-
     <string-array name="catagory">
         <item>Select a category</item>
         <item>Bank Account</item>
@@ -51,6 +50,14 @@
         <item>Social Media</item>
         <item>Others</item>
     </string-array>
+
+
+
+    <string name="juboraj_sarker"><u>Juboraj Sarker</u></string>
+
+
+
+    <string name="interstitial_full_screen1">ca-app-pub-5809082953640465/5338019371</string>
 
 
 </resources>

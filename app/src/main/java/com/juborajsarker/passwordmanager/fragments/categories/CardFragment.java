@@ -192,17 +192,114 @@ public class CardFragment extends Fragment {
                                 || pin.equals("")
                                 || ccv.equals("")
                                 || year.equals("")
-                                || month.equals("")) {
+                                || month.equals("")){
 
                             Toast.makeText(getContext(), "Please input valid", Toast.LENGTH_SHORT).show();
-                        } else {
+                        }
 
-                            if (bankName.equals("")) {
+                        else {
+
+                            if (bankName.equals("")){
 
                                 bankName = "null";
                             }
 
-                            prepare();
+                            if (cardNumber.length()<16 ||
+                                    pin.length()<4 ||
+                                    ccv.length()<3 ||
+                                    year.length()<4 ||
+                                    month.length()<2)
+
+                            {
+
+                                Toast.makeText(getContext(), "Invalid Input. Please check details", Toast.LENGTH_SHORT).show();
+
+
+
+                                if (cardNumber.length()<16){
+
+                                    cardNumberET.setError("Card Number must be 16 digit");
+                                }
+
+                                if (pin.length()<4){
+
+                                    cardPinET.setError("PIN Number must be 4 digit");
+                                }
+
+                                if (ccv.length()<3){
+
+                                    cardPinET.setError("CCV Number must be 3 digit");
+                                }
+
+                                if (year.length()<4){
+
+                                    cardYearET.setError("YEAR must be 4 digit");
+                                }
+
+                                if (month.length()<2){
+
+                                    cardMonthET.setError("MONTH must be 2 digit");
+                                }
+
+                                if (Integer.parseInt(year) > 2030){
+
+                                    cardYearET.setError("Enter a valid YEAR");
+                                }
+
+                                if (Integer.parseInt(month) > 12){
+
+                                    cardMonthET.setError("Enter a valid MONTH\nCannot greater than 12");
+                                }
+
+                                if (nameOnCard.charAt(0) == ' '){
+
+                                    cardNameOnET.setError("Name cannot start with space");
+                                }
+
+                                if (bankName.charAt(0) == ' '){
+
+                                    cardBankNameET.setError("Bank Name cannot start with space");
+                                }
+
+
+                            }else {
+
+
+                                if (Integer.parseInt(year) > 2030 ||
+                                        Integer.parseInt(month) > 12 ||
+                                        nameOnCard.charAt(0) == ' '||
+                                        bankName.charAt(0) == ' '){
+
+                                    if (Integer.parseInt(year) > 2030){
+
+                                        cardYearET.setError("Enter a valid YEAR");
+                                    }
+
+                                    if (Integer.parseInt(month) > 12){
+
+                                        cardMonthET.setError("Enter a valid MONTH\nCannot greater than 12");
+                                    }
+
+                                    if (nameOnCard.charAt(0) == ' '){
+
+                                        cardNameOnET.setError("Name cannot start with space");
+                                    }
+
+                                    if (bankName.charAt(0) == ' '){
+
+                                        cardBankNameET.setError("Bank Name cannot start with space");
+                                    }
+
+                                }else {
+
+                                    prepare();
+                                }
+
+
+
+
+                            }
+
 
                         }
 
@@ -364,7 +461,60 @@ public class CardFragment extends Fragment {
                         String.valueOf(cardModel.getHeader()),
                         cardModel.getType());
 
-                String key = databaseReference.push().getKey();
+
+                int keyValue = 0;
+                int temp = 0;
+
+                for (int j=0; j<cardModel.getCardNumber().length(); j++){
+
+                    temp = cardModel.getCardNumber().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<cardModel.getNameOnCard().length(); j++){
+
+                    temp = cardModel.getNameOnCard().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+                for (int j=0; j<cardModel.getPin().length(); j++){
+
+                    temp = cardModel.getPin().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<cardModel.getCcv().length(); j++){
+
+                    temp = cardModel.getCcv().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+                for (int j=0; j<cardModel.getValidityMonth().length(); j++){
+
+                    temp = cardModel.getValidityMonth().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<cardModel.getValidityYear().length(); j++){
+
+                    temp = cardModel.getValidityYear().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+                for (int j=0; j<cardModel.getBankName().length(); j++){
+
+                    temp = cardModel.getBankName().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+
+
+
+                String key = String.valueOf(keyValue);
 
                 databaseReference.child(key).setValue(firebaseCardModel);
 

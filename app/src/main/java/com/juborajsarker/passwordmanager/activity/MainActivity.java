@@ -40,11 +40,16 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager fragmentManager;
-    SharedPreferences sharedPreferences;
-    TextView myTV;
-    View header;
 
+    TextView headerStatusTV, headerEmailTV;
+    View header;
     String fragmentName;
+
+
+    private SharedPreferences sharedPreferences;
+    boolean onlineRegister = false;
+    String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +73,61 @@ public class MainActivity extends AppCompatActivity
         header = navigationView.getHeaderView(0);
 
 
-        myTV = (TextView) header.findViewById(R.id.myTV);
-        myTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Toast.makeText(MainActivity.this, "Clicked !!!", Toast.LENGTH_SHORT).show();
+
+
+
+        headerStatusTV = (TextView) header.findViewById(R.id.header_status_TV);
+        headerEmailTV = (TextView) header.findViewById(R.id.header_email_TV);
+
+
+
+        try {
+
+            sharedPreferences = getSharedPreferences("registerStatus", MODE_PRIVATE);
+            onlineRegister = sharedPreferences.getBoolean("onlineRegisterStatus", true);
+            email = sharedPreferences.getString("email", "");
+
+
+            if (! email.equals("")){
+
+                String encrypt ;
+                int value = 0;
+                String sub;
+
+                for (int i=0; i<email.length(); i++){
+
+                    if (email.charAt(i)=='@'){
+
+                        value = i;
+                    }
+                }
+
+                encrypt= email.substring(0, value);
+                sub = email.substring(value,email.length());
+                char finalEncrypt[] = encrypt.toCharArray();
+
+                for (int i=1; i< encrypt.length() - 1; i++){
+
+                    finalEncrypt[i] = '*';
+
+                }
+
+                finalEncrypt[0] = encrypt.charAt(0);
+                finalEncrypt[encrypt.length()-1] = encrypt.charAt(encrypt.length()-1);
+                headerEmailTV.setText(String.valueOf(finalEncrypt) + sub);
+                headerStatusTV.setText("REGISTERED user");
+
+            }else {
+
+                headerEmailTV.setText("not registered with email");
+                headerStatusTV.setText("UN-REGISTERED user");
             }
-        });
+
+        }catch (Exception e){
+
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
 
 
@@ -162,7 +214,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_about) {
 
 
-            return true;
+            startActivity(new Intent(MainActivity.this, AboutActivity.class));
 
         }else if (id == R.id.action_exit){
 

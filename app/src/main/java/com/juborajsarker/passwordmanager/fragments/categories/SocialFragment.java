@@ -172,7 +172,34 @@ public class SocialFragment extends Fragment {
                                 website = "null";
                             }
 
-                            prepare();
+                            if (title.charAt(0) == ' ' || email.charAt(0) == ' ' || website.charAt(0) ==' '){
+
+                                if (title.charAt(0) == ' '){
+
+                                    titleValue.setError("Title cannot start with space");
+                                }
+
+                                if (email.charAt(0) == ' '){
+
+                                    emailValue.setError("Email cannot start with space");
+                                }
+
+                                if (website.charAt(0) == ' '){
+
+                                    websiteValue.setError("Website cannot start with space");
+                                }
+
+                            }else {
+
+                                if (!emailValidation(email)){
+
+                                    emailValue.setError("This is not a valid email format.\nPlease check your input");
+
+                                }else {
+
+                                    prepare();
+                                }
+                            }
 
                         }
 
@@ -331,7 +358,38 @@ public class SocialFragment extends Fragment {
                         modelPasswords.getType(),
                         modelPasswords.getEmail());
 
-                String key = databaseReference.push().getKey();
+                int keyValue = 0;
+                int temp = 0;
+
+                for (int j=0; j<model.getTitle().length(); j++){
+
+                    temp = model.getTitle().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<model.getEmail().length(); j++){
+
+                    temp = model.getEmail().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+                for (int j=0; j<model.getPassword().length(); j++){
+
+                    temp = model.getPassword().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+                for (int j=0; j<model.getWebsite().length(); j++){
+
+                    temp = model.getWebsite().charAt(j);
+                    keyValue = keyValue + temp;
+                }
+
+
+
+                String key = String.valueOf(keyValue);
                 databaseReference.child(key).setValue(model);
 
             }
@@ -432,4 +490,20 @@ public class SocialFragment extends Fragment {
         }
     }
 
+    private boolean emailValidation(String email) {
+
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String inputEmail = email.trim();
+
+        if (inputEmail.matches(emailPattern)){
+
+            return true;
+
+        }else {
+
+            return false;
+        }
+
+
+    }
 }

@@ -123,7 +123,19 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         String bankName = cardModel.getBankName();
         char header = cardModel.getHeader();
 
-        holder.cvCardNumberTV.setText(cardNumber);
+
+        String sub= "";
+
+        try {
+
+            sub = cardNumber.substring(12,cardNumber.length());
+
+        }catch (Exception e){
+
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        holder.cvCardNumberTV.setText("************" + sub);
         holder.cvNameOnCardTV.setText(nameOnCard);
         holder.cvBankNameTV.setText(bankName);
         holder.cvHeaderTV.setText(String.valueOf(header));
@@ -394,15 +406,32 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                 case R.id.card_action_delete: {
 
 
-                    cardDatabase = new CardDatabase(context);
-                    cardModelList = cardDatabase.getAllData();
-                    CardModel cardModel = cardModelList.get(position);
-                    cardDatabase.deleteCard(cardModel);
 
-                    cardModelList.remove(position);
-                    CardAdapter adapter = new CardAdapter(context, cardModelList, cardDatabase, recyclerView);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+
+
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("DELETE file?")
+                            .setMessage("Are you sure you want to proceed with the deletion?")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    deleteData(position);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+
+
+
 
                     break;
 
@@ -416,6 +445,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     }
 
+    private void deleteData(int position) {
+
+        cardDatabase = new CardDatabase(context);
+        cardModelList = cardDatabase.getAllData();
+        CardModel cardModel = cardModelList.get(position);
+        cardDatabase.deleteCard(cardModel);
+
+        cardModelList.remove(position);
+        CardAdapter adapter = new CardAdapter(context, cardModelList, cardDatabase, recyclerView);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
 
     public void showDialog(){
@@ -527,7 +568,55 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                         bankName = "null";
                     }
 
-                    prepare();
+                    if (cardNumber.length()<16 ||
+                            pin.length()<4 ||
+                            ccv.length()<3 ||
+                            year.length()<4 ||
+                            month.length()<2){
+
+                        Toast.makeText(context, "Invalid Input. Please check details", Toast.LENGTH_SHORT).show();
+
+                        if (cardNumber.length()<16){
+
+                            cardNumberET.setError("Card Number must be 16 digit");
+                        }
+
+                        if (pin.length()<4){
+
+                            cardPinET.setError("PIN Number must be 4 digit");
+                        }
+
+                        if (ccv.length()<3){
+
+                            cardPinET.setError("CCV Number must be 3 digit");
+                        }
+
+                        if (year.length()<4){
+
+                            cardYearET.setError("YEAR must be 4 digit");
+                        }
+
+                        if (month.length()<2){
+
+                            cardMonthET.setError("MONTH must be 2 digit");
+                        }
+
+                        if (Integer.parseInt(year) > 2030){
+
+                            cardYearET.setError("Enter a valid YEAR");
+                        }
+
+                        if (Integer.parseInt(month) > 12){
+
+                            cardMonthET.setError("Enter a valid MONTH");
+                        }
+
+
+                    }else {
+
+                        prepare();
+                    }
+
 
                 }
 
@@ -657,7 +746,62 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                 String.valueOf(cardModel.getHeader()),
                 cardModel.getType());
 
-        String key = databaseReference.push().getKey();
+
+
+        int keyValue = 0;
+        int temp = 0;
+
+        for (int j=0; j<cardModel.getCardNumber().length(); j++){
+
+            temp = cardModel.getCardNumber().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+
+        for (int j=0; j<cardModel.getNameOnCard().length(); j++){
+
+            temp = cardModel.getNameOnCard().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+        for (int j=0; j<cardModel.getPin().length(); j++){
+
+            temp = cardModel.getPin().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+
+        for (int j=0; j<cardModel.getCcv().length(); j++){
+
+            temp = cardModel.getCcv().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+        for (int j=0; j<cardModel.getValidityMonth().length(); j++){
+
+            temp = cardModel.getValidityMonth().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+
+        for (int j=0; j<cardModel.getValidityYear().length(); j++){
+
+            temp = cardModel.getValidityYear().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+        for (int j=0; j<cardModel.getBankName().length(); j++){
+
+            temp = cardModel.getBankName().charAt(j);
+            keyValue = keyValue + temp;
+        }
+
+
+
+
+
+        String key = String.valueOf(keyValue);
+
         databaseReference.child(key).setValue(firebaseCardModel);
 
 

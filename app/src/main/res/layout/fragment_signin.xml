@@ -54,6 +54,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edit_text_design"
                             android:padding="8dp"
+                            android:inputType="textEmailAddress"
                             android:layout_margin="5dp"/>
 
 
@@ -83,6 +84,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edit_text_design"
                             android:padding="8dp"
+                            android:inputType="textPassword"
                             android:layout_margin="5dp"/>
 
 
@@ -106,6 +108,18 @@
                 android:layout_marginRight="8dp"
                 android:text="Sign In"
                 android:textColor="#fff"/>
+
+
+
+            <TextView
+                android:id="@+id/forgotPass_TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot password?"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="12dp"/>
 
         </LinearLayout>
 

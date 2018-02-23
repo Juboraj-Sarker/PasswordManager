@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -22,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.database.CardDatabase;
 import com.juborajsarker.passwordmanager.model.CardModel;
@@ -30,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardDetailsActivity extends AppCompatActivity {
+
+    InterstitialAd mInterstitialAd;
 
     TextView cardNumberTV, nameOnCardTV, cardPINTV, cardCCVTV, cardValidTV, cardBankNameTV;
     ImageView copyCardNumberIV, copyNameIV, copyCardPinIV, copyCardCcvIV, cardValidIV, copyBankNameIV;
@@ -85,6 +92,9 @@ public class CardDetailsActivity extends AppCompatActivity {
         flag = intent.getIntExtra("flag", 0);
         position = intent.getIntExtra("position", 0);
 
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen1));
 
         init();
         setAction();
@@ -317,7 +327,26 @@ public class CardDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                deleteData();
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(CardDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog);
+                } else {
+                    builder = new AlertDialog.Builder(CardDetailsActivity.this);
+                }
+                builder.setTitle("DELETE file?")
+                        .setMessage("Are you sure you want to proceed with the deletion?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteData();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
 
             }
         });
@@ -330,6 +359,19 @@ public class CardDetailsActivity extends AppCompatActivity {
 
 
     private void deleteData() {
+
+
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
+        mInterstitialAd.loadAd(adRequest);
+
+
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
 
 
         cardModelList = cardDatabase.getAllData();
@@ -449,6 +491,7 @@ public class CardDetailsActivity extends AppCompatActivity {
                         || month.equals("")) {
 
                     Toast.makeText(CardDetailsActivity.this, "Please input valid", Toast.LENGTH_SHORT).show();
+
                 } else {
 
                     if (bankName.equals("")) {
@@ -456,7 +499,101 @@ public class CardDetailsActivity extends AppCompatActivity {
                         bankName = "null";
                     }
 
-                    prepare();
+                    if (cardNumber.length()<16 ||
+                            pin.length()<4 ||
+                            ccv.length()<3 ||
+                            year.length()<4 ||
+                            month.length()<2)
+
+                    {
+
+                        Toast.makeText(CardDetailsActivity.this, "Invalid Input. Please check details", Toast.LENGTH_SHORT).show();
+
+
+
+                        if (cardNumber.length()<16){
+
+                            cardNumberET.setError("Card Number must be 16 digit");
+                        }
+
+                        if (pin.length()<4){
+
+                            cardPinET.setError("PIN Number must be 4 digit");
+                        }
+
+                        if (ccv.length()<3){
+
+                            cardPinET.setError("CCV Number must be 3 digit");
+                        }
+
+                        if (year.length()<4){
+
+                            cardYearET.setError("YEAR must be 4 digit");
+                        }
+
+                        if (month.length()<2){
+
+                            cardMonthET.setError("MONTH must be 2 digit");
+                        }
+
+                        if (Integer.parseInt(year) > 2030){
+
+                            cardYearET.setError("Enter a valid YEAR");
+                        }
+
+                        if (Integer.parseInt(month) > 12){
+
+                            cardMonthET.setError("Enter a valid MONTH\nCannot greater than 12");
+                        }
+
+                        if (nameOnCard.charAt(0) == ' '){
+
+                            cardNameOnET.setError("Name cannot start with space");
+                        }
+
+                        if (bankName.charAt(0) == ' '){
+
+                            cardBankNameET.setError("Bank Name cannot start with space");
+                        }
+
+
+                    }else {
+
+
+                        if (Integer.parseInt(year) > 2030 ||
+                                Integer.parseInt(month) > 12 ||
+                                nameOnCard.charAt(0) == ' '||
+                                bankName.charAt(0) == ' '){
+
+                            if (Integer.parseInt(year) > 2030){
+
+                                cardYearET.setError("Enter a valid YEAR");
+                            }
+
+                            if (Integer.parseInt(month) > 12){
+
+                                cardMonthET.setError("Enter a valid MONTH\nCannot greater than 12");
+                            }
+
+                            if (nameOnCard.charAt(0) == ' '){
+
+                                cardNameOnET.setError("Name cannot start with space");
+                            }
+
+                            if (bankName.charAt(0) == ' '){
+
+                                cardBankNameET.setError("Bank Name cannot start with space");
+                            }
+
+                        }else {
+
+                            prepare();
+                        }
+
+
+
+
+                    }
 
                     cardNumberTV.setText(cardNumber);
                     nameOnCardTV.setText(nameOnCard);
@@ -506,6 +643,15 @@ public class CardDetailsActivity extends AppCompatActivity {
 
 
     }
+
+
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
+
 
     }
 
