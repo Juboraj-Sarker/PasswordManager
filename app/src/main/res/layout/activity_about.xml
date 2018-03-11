@@ -17,20 +17,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:background="@drawable/gradient_background"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:layout_margin="5dp">
+        android:paddingBottom="10dp">
 
 
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/main_icon"
             android:layout_gravity="center"
-            android:padding="8dp"
             android:layout_marginTop="10dp"
-            android:background="#fff"/>
+            android:background="#fff"
+            android:padding="8dp"
+            app:srcCompat="@drawable/main_icon" />
 
 
         <ScrollView
@@ -42,40 +42,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp">
+                android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#fff"
+                    android:orientation="horizontal"
                     android:padding="8dp">
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="App Name"
                         android:textColor="#aa000000"
-                        android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"/>
+                        android:textSize="18sp" />
 
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="@string/app_name"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
                         android:textStyle="bold"/>
 
 
@@ -87,19 +87,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#fff"
+                    android:orientation="horizontal"
                     android:padding="8dp">
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="Verson Code"
                         android:textColor="#aa000000"
-                        android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"/>
+                        android:textSize="18sp" />
 
 
 
@@ -107,11 +107,11 @@
                         android:id="@+id/versionCode"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="2"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
                         android:textStyle="bold"/>
 
 
@@ -122,19 +122,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#fff"
+                    android:orientation="horizontal"
                     android:padding="8dp">
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="Version Name"
                         android:textColor="#aa000000"
-                        android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"/>
+                        android:textSize="18sp" />
 
 
 
@@ -142,11 +142,11 @@
                         android:id="@+id/versionName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="2.0"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
                         android:textStyle="bold"/>
 
 
@@ -157,32 +157,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#fff"
+                    android:orientation="horizontal"
                     android:padding="8dp">
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="Developer Name"
                         android:textColor="#aa000000"
-                        android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"/>
+                        android:textSize="18sp" />
 
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="click"
+                        android:padding="8dp"
                         android:text="@string/juboraj_sarker"
                         android:textColor="#2342ce"
                         android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
-                        android:textStyle="bold"
-                        android:onClick="click"/>
+                        android:textStyle="bold" />
 
 
 
@@ -194,30 +194,30 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#fff"
+                    android:orientation="horizontal"
                     android:padding="8dp">
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="Last Updated On"
                         android:textColor="#aa000000"
-                        android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"/>
+                        android:textSize="18sp" />
 
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="24 February, 2018"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="11 March, 2018"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
                         android:textStyle="bold"/>
 
 
@@ -233,19 +233,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#fff"
+                    android:orientation="horizontal"
                     android:padding="8dp">
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="Package Name"
                         android:textColor="#aa000000"
-                        android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"/>
+                        android:textSize="18sp" />
 
 
 
@@ -253,11 +253,11 @@
                         android:id="@+id/packageName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
                         android:text="com.juborajsarker.passwordmanager"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
                         android:textStyle="bold"/>
 
 
