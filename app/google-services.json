@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "132926769567",
+    "firebase_url": "https://passwordmanager-63938.firebaseio.com",
+    "project_id": "passwordmanager-63938",
+    "storage_bucket": "passwordmanager-63938.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132926769567:android:9c8dac55b911039a",
+        "android_client_info": {
+          "package_name": "com.juborajsarker.passwordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132926769567-o4oi9h77d1trhj3rvcfrvcgq71mukhss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juborajsarker.passwordmanager",
+            "certificate_hash": "63c809115ca3e2a5917bfa164acde72d57b1f485"
+          }
+        },
+        {
+          "client_id": "132926769567-r1h8jrk0sqbsdnnrkniph8irmmuhjua8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS_jaTz-C0c0XpiDWeFgcovN0buGsCAs0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132926769567-r1h8jrk0sqbsdnnrkniph8irmmuhjua8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
