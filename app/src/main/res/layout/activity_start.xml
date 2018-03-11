@@ -74,6 +74,7 @@
                     android:layout_marginBottom="8dp"
                     android:gravity="center"
                     android:maxLines="1"
+                    android:editable="false"
                     android:maxLength="6"
                     android:inputType="numberPassword"/>
 

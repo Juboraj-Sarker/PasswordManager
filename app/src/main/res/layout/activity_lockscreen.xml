@@ -76,6 +76,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:maxLength="6"
+                    android:editable="false"
                     android:inputType="numberPassword"/>
 
             </LinearLayout>
@@ -278,7 +279,11 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/colorPrimary"
                 android:layout_marginTop="8dp"
-                android:textColor="#fff" />
+                android:textColor="#fff" >
+
+                <requestFocus/>
+
+            </Button>
 
 
 

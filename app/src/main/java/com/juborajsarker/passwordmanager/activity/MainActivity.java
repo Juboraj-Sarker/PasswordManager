@@ -9,6 +9,7 @@ import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences sharedPreferences;
     boolean onlineRegister = false;
     String email;
+
+    boolean doubleBackToExitPressedOnce = false;
 
 
     @Override
@@ -194,10 +197,27 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+
         } else {
-            super.onBackPressed();
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
-    }
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -504,4 +524,9 @@ public class MainActivity extends AppCompatActivity
         intent.addFlags(flags);
         return intent;
     }
+
+
+
+
+
 }

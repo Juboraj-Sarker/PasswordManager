@@ -1,12 +1,14 @@
 package com.juborajsarker.passwordmanager.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +35,10 @@ public class LockscreenActivity extends AppCompatActivity {
 
     InterstitialAd mInterstitialAd;
 
+    boolean doubleBackToExitPressedOnce = false;
+
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,10 @@ public class LockscreenActivity extends AppCompatActivity {
       //  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lockscreen);
 
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait while checking information ......");
+        progressDialog.setCancelable(false);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sharedPreferences = this.getSharedPreferences("settings", MODE_PRIVATE);
@@ -78,7 +88,7 @@ public class LockscreenActivity extends AppCompatActivity {
                     if (getPassword.equals(masterPassword)){
 
 
-
+                        progressDialog.show();
                         AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
                         mInterstitialAd.loadAd(adRequest);
 
@@ -93,6 +103,7 @@ public class LockscreenActivity extends AppCompatActivity {
                         Intent intent = new Intent(LockscreenActivity.this, MainActivity.class);
                         intent.putExtra("fragmentName", "home");
                         Toast.makeText(LockscreenActivity.this, "Success !!!", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                         startActivity(intent);
                         finish();
 
@@ -325,4 +336,24 @@ public class LockscreenActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 }
