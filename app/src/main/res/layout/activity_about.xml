@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="8dp"
-                        android:text="2"
+                        android:text="3"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="8dp"
-                        android:text="2.0"
+                        android:text="3.0"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
@@ -215,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="8dp"
-                        android:text="11 March, 2018"
+                        android:text="29 March, 2018"
                         android:textColor="#aa000000"
                         android:textSize="18sp"
                         android:textStyle="bold"/>

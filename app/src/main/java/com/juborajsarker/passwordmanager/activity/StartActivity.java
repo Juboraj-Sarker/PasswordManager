@@ -13,7 +13,6 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +27,7 @@ public class StartActivity extends AppCompatActivity {
 
     TextView messageTV;
     Button okBTN;
-    EditText inputTV;
+    TextView inputTV;
 
     String password1, password2;
     int count, counter = 0;
@@ -46,9 +45,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("loading please wait.........");
-        progressDialog.setCancelable(false);
+
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
@@ -107,7 +104,9 @@ public class StartActivity extends AppCompatActivity {
 
                         if (password1.equals(password2)){
 
-
+                            progressDialog = new ProgressDialog(StartActivity.this);
+                            progressDialog.setMessage("loading please wait.........");
+                            progressDialog.setCancelable(false);
                             progressDialog.show();
 
                             AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();

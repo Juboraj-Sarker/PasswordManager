@@ -13,7 +13,7 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -28,7 +28,7 @@ public class LockscreenActivity extends AppCompatActivity {
 
 
     Button okBTN;
-    EditText inputTV;
+    TextView inputTV;
     Vibrator vibrator;
     int counter = 0;
     String masterPassword;
@@ -47,9 +47,7 @@ public class LockscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lockscreen);
 
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait while checking information ......");
-        progressDialog.setCancelable(false);
+
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sharedPreferences = this.getSharedPreferences("settings", MODE_PRIVATE);
@@ -74,20 +72,20 @@ public class LockscreenActivity extends AppCompatActivity {
 
                 if (inputTV.getText().toString().length() < 6 ){
 
-                    inputTV.setError("Wrong password !!!");
-
+                    inputTV.setError("Password must be 6 digit");
 
 
                 }
-
-                if (inputTV.getText().toString().length() == 6){
+                if (inputTV.getText().toString().length() == 6) {
 
 
                     String getPassword = inputTV.getText().toString();
 
                     if (getPassword.equals(masterPassword)){
 
-
+                        progressDialog = new ProgressDialog(LockscreenActivity.this);
+                        progressDialog.setMessage("Please wait while checking information ......");
+                        progressDialog.setCancelable(false);
                         progressDialog.show();
                         AdRequest adRequest = new AdRequest.Builder().addTestDevice("93448558CC721EBAD8FAAE5DA52596D3").build();
                         mInterstitialAd.loadAd(adRequest);
