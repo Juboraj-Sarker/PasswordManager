@@ -32,6 +32,7 @@ import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.activity.RegisterActivity;
 import com.juborajsarker.passwordmanager.adapters.CustomAdapter;
 import com.juborajsarker.passwordmanager.database.DBHelper;
+import com.juborajsarker.passwordmanager.java_class.UserCountry;
 import com.juborajsarker.passwordmanager.model.FirebaseModel;
 import com.juborajsarker.passwordmanager.model.GridSpacingItemDecoration;
 import com.juborajsarker.passwordmanager.model.ModelPassword;
@@ -76,6 +77,7 @@ public class OthersFragment extends Fragment {
 
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
+    DatabaseReference databaseReference3;
 
 
     public OthersFragment() {
@@ -396,6 +398,10 @@ public class OthersFragment extends Fragment {
 
                 String key = String.valueOf(keyValue);
                 databaseReference.child(key).setValue(model);
+
+                databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" + UserCountry.getUserCountry(getContext())
+                        + "/" + userPref + "/" + modelPasswords.getType());
+                databaseReference3.child(key).setValue(model);
 
             }
 

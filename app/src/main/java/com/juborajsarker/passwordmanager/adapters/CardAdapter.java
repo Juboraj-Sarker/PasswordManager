@@ -30,6 +30,7 @@ import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.activity.CardDetailsActivity;
 import com.juborajsarker.passwordmanager.activity.RegisterActivity;
 import com.juborajsarker.passwordmanager.database.CardDatabase;
+import com.juborajsarker.passwordmanager.java_class.UserCountry;
 import com.juborajsarker.passwordmanager.model.CardModel;
 import com.juborajsarker.passwordmanager.model.FirebaseCardModel;
 import com.juborajsarker.passwordmanager.model.UserInfo;
@@ -52,6 +53,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReference2;
+    private DatabaseReference databaseReference3;
     String uid, prefEmail;
     boolean onlineRegister = false;
     public SharedPreferences sharedPreferences;
@@ -803,6 +805,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         String key = String.valueOf(keyValue);
 
         databaseReference.child(key).setValue(firebaseCardModel);
+
+
+        databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" + UserCountry.getUserCountry(context)
+                + "/" + uid + "/" + firebaseCardModel.getType());
+        databaseReference3.child(key).setValue(firebaseCardModel);
 
 
         databaseReference2 = FirebaseDatabase.getInstance().getReference("User/" + uid

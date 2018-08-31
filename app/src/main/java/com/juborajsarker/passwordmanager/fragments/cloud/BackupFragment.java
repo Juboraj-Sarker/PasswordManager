@@ -28,6 +28,7 @@ import com.juborajsarker.passwordmanager.adapters.CardAdapter;
 import com.juborajsarker.passwordmanager.adapters.CustomAdapter;
 import com.juborajsarker.passwordmanager.database.CardDatabase;
 import com.juborajsarker.passwordmanager.database.DBHelper;
+import com.juborajsarker.passwordmanager.java_class.UserCountry;
 import com.juborajsarker.passwordmanager.model.CardModel;
 import com.juborajsarker.passwordmanager.model.FirebaseCardModel;
 import com.juborajsarker.passwordmanager.model.FirebaseModel;
@@ -66,6 +67,7 @@ public class BackupFragment extends Fragment {
 
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
+    DatabaseReference databaseReference3;
 
     int index;
 
@@ -411,6 +413,11 @@ public class BackupFragment extends Fragment {
                 String key = String.valueOf(keyValue);
                 databaseReference.child(key).setValue(model);
 
+
+                databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" + UserCountry.getUserCountry(getContext())
+                        + "/" + userPref + "/" + modelPasswords.getType());
+                databaseReference3.child(key).setValue(model);
+
             }
 
 
@@ -550,6 +557,11 @@ public class BackupFragment extends Fragment {
 
             String key = String.valueOf(keyValue);
             databaseReference.child(key).setValue(firebaseCardModel);
+
+
+            databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" + UserCountry.getUserCountry(getContext())
+                    + "/" + userPref + "/" + firebaseCardModel.getType());
+            databaseReference3.child(key).setValue(firebaseCardModel);
 
         }
 

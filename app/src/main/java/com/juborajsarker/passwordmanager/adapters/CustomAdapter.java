@@ -31,6 +31,7 @@ import com.juborajsarker.passwordmanager.activity.RegisterActivity;
 import com.juborajsarker.passwordmanager.activity.ViewActivity;
 import com.juborajsarker.passwordmanager.activity.WebviewActivity;
 import com.juborajsarker.passwordmanager.database.DBHelper;
+import com.juborajsarker.passwordmanager.java_class.UserCountry;
 import com.juborajsarker.passwordmanager.model.FirebaseModel;
 import com.juborajsarker.passwordmanager.model.ModelPassword;
 import com.juborajsarker.passwordmanager.model.UserInfo;
@@ -52,6 +53,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReference2;
+    private DatabaseReference databaseReference3;
     String uid, prefEmail;
     boolean onlineRegister = false;
     public SharedPreferences sharedPreferences;
@@ -740,6 +742,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         String key = String.valueOf(keyValue);
         databaseReference.child(key).setValue(model);
+
+
+        databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" +
+                UserCountry.getUserCountry(context) + "/" + uid + "/" + modelPasswords.getType());
+        databaseReference3.child(key).setValue(model);
 
         databaseReference2 = FirebaseDatabase.getInstance().getReference("User/" + uid
                 + "/Other Data");

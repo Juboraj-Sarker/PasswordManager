@@ -32,6 +32,7 @@ import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.activity.RegisterActivity;
 import com.juborajsarker.passwordmanager.adapters.CustomAdapter;
 import com.juborajsarker.passwordmanager.database.DBHelper;
+import com.juborajsarker.passwordmanager.java_class.UserCountry;
 import com.juborajsarker.passwordmanager.model.FirebaseModel;
 import com.juborajsarker.passwordmanager.model.GridSpacingItemDecoration;
 import com.juborajsarker.passwordmanager.model.ModelPassword;
@@ -74,6 +75,7 @@ public class BankFragment extends Fragment {
 
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
+    DatabaseReference databaseReference3;
 
 
 
@@ -290,9 +292,8 @@ public class BankFragment extends Fragment {
     }
 
 
-    /**
-     * Converting dp to pixel
-     */
+
+
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
@@ -409,6 +410,10 @@ public class BankFragment extends Fragment {
                 String key = String.valueOf(keyValue);
                 databaseReference.child(key).setValue(model);
 
+                databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" +
+                        UserCountry.getUserCountry(getContext()) + "/" + userPref + "/" + modelPasswords.getType());
+                databaseReference3.child(key).setValue(model);
+
             }
 
 
@@ -435,6 +440,8 @@ public class BankFragment extends Fragment {
 
             Toast.makeText(getContext(), "Successfully added on cloud !!!", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
+
+
 
         }else {
 

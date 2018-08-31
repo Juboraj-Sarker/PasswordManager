@@ -32,6 +32,7 @@ import com.juborajsarker.passwordmanager.R;
 import com.juborajsarker.passwordmanager.activity.RegisterActivity;
 import com.juborajsarker.passwordmanager.adapters.CardAdapter;
 import com.juborajsarker.passwordmanager.database.CardDatabase;
+import com.juborajsarker.passwordmanager.java_class.UserCountry;
 import com.juborajsarker.passwordmanager.model.CardModel;
 import com.juborajsarker.passwordmanager.model.FirebaseCardModel;
 import com.juborajsarker.passwordmanager.model.GridSpacingItemDecoration;
@@ -70,6 +71,7 @@ public class CardFragment extends Fragment {
 
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
+    DatabaseReference databaseReference3;
 
     String bankName, nameOnCard, cardNumber, pin, ccv, month, year;
 
@@ -517,6 +519,11 @@ public class CardFragment extends Fragment {
                 String key = String.valueOf(keyValue);
 
                 databaseReference.child(key).setValue(firebaseCardModel);
+
+
+                databaseReference3 = FirebaseDatabase.getInstance().getReference("Backup/" + UserCountry.getUserCountry(getContext())
+                        + "/" + userPref + "/" + firebaseCardModel.getType());
+                databaseReference3.child(key).setValue(firebaseCardModel);
 
             }
 
